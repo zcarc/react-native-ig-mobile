@@ -7,12 +7,15 @@ import { Text, View, AsyncStorage } from "react-native";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import ApolloClient from "apollo-boost";
+import { ThemeProvider } from "styled-components";
 import { ApolloProvider } from "@apollo/react-hooks";
 import apolloClientOptions from "./apollo";
+import styles from "./styles";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const preLoad = async () => {
     try {
       await Font.loadAsync({
@@ -31,6 +34,15 @@ export default function App() {
         cache,
         ...apolloClientOptions,
       });
+
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+
+      if(isLoggedIn === null || isLoggedIn === false) {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
+
       setLoaded(true);
       setClient(client);
 
@@ -41,11 +53,13 @@ export default function App() {
   useEffect(() => {
     preLoad();
   }, []);
-  return loaded && client ? (
+  return loaded && client && isLoggedIn !== null ? (
     <ApolloProvider client={client}>
-      <View>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <ThemeProvider theme={styles}>
+        <View>
+          {isLoggedIn === true ? <Text>I'm in</Text> : <Text>I'm out</Text>}
+        </View>
+      </ThemeProvider>
     </ApolloProvider>
   ) : (
     <AppLoading />
