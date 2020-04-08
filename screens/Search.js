@@ -11,6 +11,6 @@ const Text = styled.Text``;
 
 export default () => (
   <View>
-    <Text>Sign Up</Text>
+    <Text>Search</Text>
   </View>
 );
