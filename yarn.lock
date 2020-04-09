@@ -1202,6 +1202,13 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
+"@react-navigation/material-top-tabs@^5.1.8":
+  version "5.1.8"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.1.8.tgz#139f2511854f558df79aeac97d391b739f937f9d"
+  integrity sha512-g9k6MtV8Kj8AG8HvAiANG+VwWkyRVAEExyg5zpxSX/5q6gm8GT9C/hbEfZraziyeiLhGsOoTmvPsFXVTLfN6IQ==
+  dependencies:
+    color "^3.1.2"
+
 "@react-navigation/native@^3.7.11":
   version "3.7.11"
   resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-3.7.11.tgz#00aa5d8187b346b16a5d2e9d1e32413c78bc4ad4"
@@ -4612,6 +4619,11 @@ react-native-screens@^2.4.0:
   integrity sha512-7GcXlaj7IIrM4l5Ub7BPTkNQJ2slHGt2bhmfWmW73NTXEv+7pjHlp+JpQO32Yn+O8UQGPFf0rsesfYUdER7ppQ==
   dependencies:
     debounce "^1.2.0"
+
+react-native-tab-view@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.14.0.tgz#dd801f82fdb8e92fce9688b78d13923f3a5a2b3f"
+  integrity sha512-Z7XAM3NsMB96c17e9EAveunk7SUgilXWwVUTmWI1u/+p2SeOMUOB87z+//UXrcVlD1e9BPweR73q7dq7krTzTg==
 
 react-native-view-shot@3.1.2:
   version "3.1.2"
