@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Text, TouchableOpacity } from "react-native";
+import MessagesLink from "../components/MessagesLink";
 const Stack = createStackNavigator();
 
 export default ({ route }) => {
@@ -14,11 +15,7 @@ export default ({ route }) => {
         name={name}
         component={initialRoute}
         options={{
-          headerRight: () => (
-            <TouchableOpacity>
-              <Text>{name}</Text>
-            </TouchableOpacity>
-          ),
+          headerRight: () => <MessagesLink/>,
         }}
       />
     </Stack.Navigator>
