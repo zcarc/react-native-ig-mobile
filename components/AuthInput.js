@@ -1,18 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import constants from "../constants";
 
 const Container = styled.View`
   margin-bottom: 10px;
 `;
 
-const TextInput = styled.TextInput``;
+const TextInput = styled.TextInput`
+  width: ${constants.width / 2};
+  padding: 10px;
+  background-color: ${(props) => props.theme.greyColor};
+  border: 1px solid ${props => props.theme.darkGreyColor};
+  border-radius: 4px;
+`;
 
 const AuthInput = ({
   value,
   placeholder,
   keyboardType = "default",
-  autoCapitalize,
+  autoCapitalize = "none",
+  onChange
 }) => (
   <Container>
     <TextInput
@@ -20,6 +28,7 @@ const AuthInput = ({
       placeholder={placeholder}
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
+      onChangeText={onChange}
     />
   </Container>
 );
@@ -36,6 +45,7 @@ AuthInput.propTypes = {
     "phone-pad",
   ]),
   autoCapitalize: PropTypes.oneOf(["none", "sentences", "words", "characters"]),
+  onChange: PropTypes.func.isRequired,
 };
 
 export default AuthInput;
