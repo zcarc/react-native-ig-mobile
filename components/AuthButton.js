@@ -10,7 +10,7 @@ const Container = styled.View`
   padding: 10px;
   margin: 0px 50px;
   border-radius: 4px;
-  width: ${constants.width / 2};
+  width: ${constants.width / 1.7};
 `;
 const Text = styled.Text`
   color: white;

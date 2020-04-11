@@ -20,7 +20,6 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const preLoad = async () => {
-
     try {
       await Font.loadAsync({
         ...Ionicons.font,
