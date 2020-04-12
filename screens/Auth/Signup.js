@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useMutation } from "@apollo/react-hooks";
 import * as Facebook from "expo-facebook";
+import * as Google from "expo-google-app-auth";
 import styled from "styled-components";
 import AuthButton from "../../components/AuthButton";
 import AuthInput from "../../components/AuthInput";
@@ -89,11 +90,7 @@ export default ({ route, navigation }) => {
           `https://graph.facebook.com/me?access_token=${token}&fields=id,last_name,first_name,email`
         );
         const { email, first_name, last_name } = await response.json();
-        emailInput.setValue(email);
-        fNameInput.setValue(first_name);
-        lNameInput.setValue(last_name);
-        const [username] = email.split("@");
-        usernameInput.setValue(username);
+        updateFormData(email, first_name, last_name);
         setLoading(false);
       } else {
         // type === 'cancel'
@@ -102,6 +99,52 @@ export default ({ route, navigation }) => {
       alert(`Facebook Login Error: ${message}`);
     }
   };
+
+  const googleLogin = async () => {
+
+    const GOOGLE_ID =
+      "827101657983-8vatq99833r5bv39hdqr45bs7bhs2mi1.apps.googleusercontent.com";
+
+      try {
+        setLoading(true);
+
+        const result = await Google.logInAsync({
+          iosClientId: GOOGLE_ID,
+          scopes: ["profile", "email"],
+        });
+
+        if (result.type === "success") {
+
+          const user = await fetch(
+            "https://www.googleapis.com/userinfo/v2/me",
+            {
+              headers: { Authorization: `Bearer ${result.accessToken}` },
+            }
+          );
+
+          const { email, given_name, family_name } = await user.json();
+          updateFormData(email, given_name, family_name);
+          
+          
+        } else {
+          return { cancelled: true };
+        }
+
+      } catch(e) {
+        console.log(e);
+
+      } finally {
+        setLoading(false);
+      }
+  }
+
+  const updateFormData = (email, firstName, lastName) => {
+    emailInput.setValue(email);
+    fNameInput.setValue(firstName);
+    lNameInput.setValue(lastName);
+    const [username] = email.split("@");
+    usernameInput.setValue(username);
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -136,6 +179,12 @@ export default ({ route, navigation }) => {
             loading={false}
             onPress={fbLogin}
             text="Connect Facebook"
+          />
+          <AuthButton
+            bgColor={"#FF0000"}
+            loading={false}
+            onPress={googleLogin}
+            text="Connect Google"
           />
         </FBContainer>
       </View>
