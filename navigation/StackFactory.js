@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Image } from "react-native";
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
+import { stackStyles } from "./config";
 const Stack = createStackNavigator();
 
 export default ({ route }) => {
@@ -19,7 +20,7 @@ export default ({ route }) => {
         options={{
           headerRight: () => <MessagesLink />,
           headerTitle: () => <NavIcon name="logo-instagram" size={36} />,
-          headerStyle: { backgroundColor: "#EFEFEF" },
+          headerStyle: { ...stackStyles },
         }}
       />
     </Stack.Navigator>

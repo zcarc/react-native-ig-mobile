@@ -15,7 +15,7 @@ export default () => (
   <TabNavigation.Navigator
     tabBarOptions={{
       showLabel: false,
-      tabStyle: { backgroundColor: "#EFEFEF" },
+      style: { backgroundColor: "#FAFAFA" },
     }}
   >
     <TabNavigation.Screen
