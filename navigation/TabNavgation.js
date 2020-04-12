@@ -12,18 +12,37 @@ const TabNavigation = createBottomTabNavigator();
 
 
 export default () => (
-  <TabNavigation.Navigator tabBarOptions={{showLabel: false}}>
+  <TabNavigation.Navigator
+    tabBarOptions={{
+      showLabel: false,
+      tabStyle: { backgroundColor: "#EFEFEF" },
+    }}
+  >
     <TabNavigation.Screen
       name={"Home"}
       component={StackFactory}
       initialParams={{ initialRoute: Home }}
-      options={{tabBarIcon: () => <NavIcon name={Platform.OS === "ios" ? "ios-home" : "md-home"}/>}}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-home" : "md-home"}
+          />
+        ),
+      }}
     />
     <TabNavigation.Screen
       name="Search"
       component={StackFactory}
       initialParams={{ initialRoute: Search }}
-      options={{tabBarIcon: () => <NavIcon name={Platform.OS === "ios" ? "ios-search" : "md-search"}/>}}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-search" : "md-search"}
+          />
+        ),
+      }}
     />
     <TabNavigation.Screen
       name="Add"
@@ -34,19 +53,49 @@ export default () => (
           navigation.navigate("PhotoNavigation");
         },
       })}
-      options={{tabBarIcon: () => <NavIcon name={Platform.OS === "ios" ? "ios-add" : "md-add"}/>}}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            size={28}
+            name={Platform.OS === "ios" ? "ios-add" : "md-add"}
+          />
+        ),
+      }}
     />
     <TabNavigation.Screen
       name="Notifications"
       component={StackFactory}
       initialParams={{ initialRoute: Notifications }}
-      options={{tabBarIcon: () => <NavIcon name={Platform.OS === "ios" ? "ios-heart" : "md-heart"}/>}}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={
+              Platform.OS === "ios"
+                ? focused
+                  ? "ios-heart"
+                  : "ios-heart-empty"
+                : focused
+                ? "md-heart"
+                : "md-heart-empty"
+            }
+          />
+        ),
+      }}
     />
     <TabNavigation.Screen
       name="Profile"
       component={StackFactory}
       initialParams={{ initialRoute: Profile }}
-      options={{tabBarIcon: () => <NavIcon name={Platform.OS === "ios" ? "ios-person" : "md-person"}/>}}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <NavIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-person" : "md-person"}
+          />
+        ),
+      }}
     />
   </TabNavigation.Navigator>
 );

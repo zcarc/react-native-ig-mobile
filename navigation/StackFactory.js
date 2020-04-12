@@ -18,7 +18,8 @@ export default ({ route }) => {
         component={initialRoute}
         options={{
           headerRight: () => <MessagesLink />,
-          headerTitle: () => <NavIcon name="logo-instagram" size={36} />
+          headerTitle: () => <NavIcon name="logo-instagram" size={36} />,
+          headerStyle: { backgroundColor: "#EFEFEF" },
         }}
       />
     </Stack.Navigator>
