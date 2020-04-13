@@ -7,12 +7,14 @@ import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import StackFactory from "./StackFactory";
 import NavIcon from "../components/NavIcon";
+import SearchBar from "../components/SearchBar";
 
 const TabNavigation = createBottomTabNavigator();
 
 
 export default () => (
   <TabNavigation.Navigator
+    initialRouteName="Search"
     tabBarOptions={{
       showLabel: false,
       style: { backgroundColor: "#FAFAFA" },
@@ -34,7 +36,9 @@ export default () => (
     <TabNavigation.Screen
       name="Search"
       component={StackFactory}
-      initialParams={{ initialRoute: Search }}
+      initialParams={{
+        initialRoute: Search,
+      }}
       options={{
         tabBarIcon: ({ focused }) => (
           <NavIcon
