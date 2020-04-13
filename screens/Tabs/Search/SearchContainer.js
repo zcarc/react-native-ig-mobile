@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../../../components/SearchBar";
 import { TextInput } from "react-native";
+import SearchPresenter from "./SearchPresent";
 
 const View = styled.View`
   justify-content: center;
@@ -11,18 +12,20 @@ const View = styled.View`
 
 const Text = styled.Text``;
 
-export default ({navigation}) => {
+export default ({ navigation }) => {
   const [term, setTerm] = useState("");
-  const onChange = text => setTerm(text);
-  const onSubmit = () => console.log("Submit");
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const onChange = (text) => {
+      setTerm(text);
+      setShouldFetch(false);
+  }
+  const onSubmit = () => {
+      setShouldFetch(true);
+  }
   navigation.setOptions({
     headerTitle: () => (
       <SearchBar value={term} onChange={onChange} onSubmit={onSubmit} />
     ),
   });
-  return (
-    <View>
-      <Text>Search</Text>
-    </View>
-  );
+  return <SearchPresenter term={term} shouldFetch={shouldFetch} />;
 };
