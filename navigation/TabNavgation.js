@@ -8,6 +8,7 @@ import Profile from "../screens/Profile";
 import StackFactory from "./StackFactory";
 import NavIcon from "../components/NavIcon";
 import SearchBar from "../components/SearchBar";
+import MessagesLink from "../components/MessagesLink";
 
 const TabNavigation = createBottomTabNavigator();
 
@@ -23,7 +24,13 @@ export default () => (
     <TabNavigation.Screen
       name={"Home"}
       component={StackFactory}
-      initialParams={{ initialRoute: Home }}
+      initialParams={{
+        initialRoute: Home,
+        customConfig: {
+          headerRight: () => <MessagesLink />,
+          headerTitle: () => <NavIcon name="logo-instagram" size={36} />,
+        },
+      }}
       options={{
         tabBarIcon: ({ focused }) => (
           <NavIcon

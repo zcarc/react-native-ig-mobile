@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default ({ route }) => {
   const {
     name,
-    params: { initialRoute, headerTitle },
+    params: { initialRoute, customConfig },
   } = route;
   console.log('route: ', route);
   return (
@@ -18,8 +18,7 @@ export default ({ route }) => {
         name={name}
         component={initialRoute}
         options={{
-          headerRight: () => <MessagesLink />,
-          headerTitle: () => headerTitle ? headerTitle : <NavIcon name="logo-instagram" size={36} />,
+          ...customConfig,
           headerStyle: { ...stackStyles },
         }}
       />
