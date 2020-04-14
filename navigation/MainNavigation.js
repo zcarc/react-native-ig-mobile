@@ -17,11 +17,11 @@ export default () => (
       mode="modal"
       screenOptions={{headerStyle: {...stackStyles}}}
     >
-      <MainNavigation.Screen name="TabNavgation" component={TabNavgation} />
       <MainNavigation.Screen
         name="PhotoNavigation"
         component={PhotoNavigation}
       />
+      <MainNavigation.Screen name="TabNavgation" component={TabNavgation} />
       <MainNavigation.Screen
         name="MessageNavigation"
         component={MessageNavigation}
