@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import { POST_FRAGMENT } from "../fragments";
 import Post from "../components/Post";
+import { ScrollView } from "react-native";
 
 const POST_DETAIL = gql`
   query seeFullPost($id: String!) {
@@ -15,10 +16,6 @@ const POST_DETAIL = gql`
   ${POST_FRAGMENT}
 `;
 
-
-const View = styled.View``;
-const Text = styled.Text``;
-
 export default ({ route }) => {
   const {
     params: { id },
@@ -28,12 +25,12 @@ export default ({ route }) => {
   });
   console.log(loading, data);
   return (
-    <View>
+    <ScrollView>
       {loading ? (
         <Loader />
       ) : (
         data && data.seeFullPost && <Post {...data.seeFullPost} />
       )}
-    </View>
+    </ScrollView>
   );
 };
