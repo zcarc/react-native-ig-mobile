@@ -6,6 +6,7 @@ import NavIcon from "../components/NavIcon";
 import Detail from "../screens/Detail";
 import { stackStyles } from "./config";
 import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,12 @@ export default ({ route }) => {
   } = route;
   console.log("route: ", route);
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: styles.blackColor,
+        headerBackTitleVisible: false,
+      }}
+    >
       <Stack.Screen
         name={name}
         component={initialRoute}
@@ -30,8 +36,13 @@ export default ({ route }) => {
         component={Detail}
         options={{
           headerTitle: "Photo",
-          headerBackTitleVisible: false,
-          headerTintColor: styles.blackColor,
+        }}
+      />
+      <Stack.Screen
+        name={"UserDetail"}
+        component={UserDetail}
+        options={{
+          headerTitle: "User",
         }}
       />
     </Stack.Navigator>
