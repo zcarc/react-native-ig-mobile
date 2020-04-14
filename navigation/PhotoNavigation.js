@@ -52,7 +52,7 @@ export default () => (
       name="PhotoTabs"
       component={PhotoTabs}
       options={{
-        headerShown: false,
+        title: "Choose Photo",
       }}
     />
     <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
