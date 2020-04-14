@@ -29,14 +29,14 @@ const PhotoTabs = () => {
         }}
       >
         <Tab.Screen
-          name="SelectPhoto"
-          component={SelectPhoto}
-          options={{ tabBarLabel: "Select" }}
-        />
-        <Tab.Screen
           name="TakePhoto"
           component={TakePhoto}
           options={{ tabBarLabel: "Take" }}
+        />
+        <Tab.Screen
+          name="SelectPhoto"
+          component={SelectPhoto}
+          options={{ tabBarLabel: "Select" }}
         />
       </Tab.Navigator>
     );
