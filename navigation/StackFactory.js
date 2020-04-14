@@ -5,6 +5,7 @@ import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import Detail from "../screens/Detail";
 import { stackStyles } from "./config";
+import styles from "../styles";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,11 @@ export default ({ route }) => {
       <Stack.Screen
         name={"Detail"}
         component={Detail}
+        options={{
+          headerTitle: "Photo",
+          headerBackTitleVisible: false,
+          headerTintColor: styles.blackColor,
+        }}
       />
     </Stack.Navigator>
   );
