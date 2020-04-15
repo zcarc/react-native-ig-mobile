@@ -5,8 +5,7 @@ import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 import styles from "../../styles";
 import constants from "../../constants";
-import AuthButton from "../../components/AuthButton";
-import apolloOption from '../../apollo';
+import apolloOption from "../../apollo";
 
 const View = styled.View`
   flex: 1;
@@ -43,7 +42,6 @@ const Text = styled.Text`
 `;
 
 export default ({ route }) => {
-
   const {
     params: { photo },
   } = route;
@@ -68,13 +66,13 @@ export default ({ route }) => {
 
     try {
       const {
-        data: { path },
+        data: { location },
       } = await axios.post(`${apolloOption.uri}/api/upload`, formData, {
         headers: {
           "content-type": "multipart/form-data",
         },
       });
-      setFileUrl(path);
+      setFileUrl(location);
     } catch (e) {
       Alert.alert("Can't upload", "Try later");
     }

@@ -83,7 +83,12 @@ export default ({ navigation }) => {
                 <Text>Select Photo</Text>
               </Button>
 
-              <ScrollView contentContainerStyle={{ flexDirection: "row" }}>
+              <ScrollView
+                contentContainerStyle={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                }}
+              >
                 {allPhotos.map((photo) => (
                   <TouchableOpacity
                     key={photo.id}
