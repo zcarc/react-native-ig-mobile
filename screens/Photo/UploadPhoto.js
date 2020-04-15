@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Image, ActivityIndicator, Alert } from "react-native";
 import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 import styles from "../../styles";
 import constants from "../../constants";
 import AuthButton from "../../components/AuthButton";
+import apolloOption from '../../apollo';
 
 const View = styled.View`
   flex: 1;
@@ -42,25 +44,47 @@ const Text = styled.Text`
 
 export default ({ route }) => {
 
-const [loading, setIsLoading] = useState(false);
-const captionInput = useInput("");
-const locationInput = useInput("");
-const handleSubmit = async () => {
-  if (captionInput.value === "" || locationInput.value === "") {
-    Alert.alert("All fields are required");
-  }
-};
-
   const {
-    params: {
-      photo: { uri },
-    },
+    params: { photo },
   } = route;
+
+  const [loading, setIsLoading] = useState(false);
+  const [fileUrl, setFileUrl] = useState("");
+  const captionInput = useInput("df");
+  const locationInput = useInput("df");
+
+  const handleSubmit = async () => {
+    if (captionInput.value === "" || locationInput.value === "") {
+      Alert.alert("All fields are required");
+    }
+    const formData = new FormData();
+    const name = photo.filename;
+    const [, type] = name.split(".");
+    formData.append("file", {
+      name,
+      type: type.toLowerCase(),
+      uri: photo.uri,
+    });
+
+    try {
+      const {
+        data: { path },
+      } = await axios.post(`${apolloOption.uri}/api/upload`, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+      setFileUrl(path);
+    } catch (e) {
+      Alert.alert("Can't upload", "Try later");
+    }
+  };
+
   return (
     <View>
       <Container>
         <Image
-          source={{ uri }}
+          source={{ uri: photo.uri }}
           style={{ height: 80, width: 80, marginRight: 30 }}
         />
         <Form>
