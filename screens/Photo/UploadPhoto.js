@@ -60,8 +60,8 @@ export default ({ route, navigation }) => {
   } = route;
 
   const [loading, setIsLoading] = useState(false);
-  const captionInput = useInput("df");
-  const locationInput = useInput("df");
+  const captionInput = useInput();
+  const locationInput = useInput();
   const [uploadMutation] = useMutation(UPLOAD, {
     refetchQueries: () => [{ query: FEED_QUERY }],
   });

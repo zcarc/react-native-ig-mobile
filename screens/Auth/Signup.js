@@ -16,11 +16,15 @@ const View = styled.View`
 `;
 
 const FBContainer = styled.View`
-  margin-top: 25px;
+  margin-top: 25;
   padding-top: 25px
   border-top-width: 1px;
   border-color: ${props => props.theme.lightGreyColor};
   border-style: solid;
+`;
+
+const GoogleContainer = styled.View`
+  margin-top: 20px;
 `;
 
 const Text = styled.Text``;
@@ -180,13 +184,15 @@ export default ({ route, navigation }) => {
             onPress={fbLogin}
             text="Connect Facebook"
           />
+        </FBContainer>
+        <GoogleContainer>
           <AuthButton
             bgColor={"#FF0000"}
             loading={false}
             onPress={googleLogin}
             text="Connect Google"
           />
-        </FBContainer>
+        </GoogleContainer>
       </View>
     </TouchableWithoutFeedback>
   );
