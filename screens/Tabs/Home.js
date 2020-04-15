@@ -7,19 +7,13 @@ import Loader from "../../components/Loader";
 import Post from "../../components/Post";
 import { POST_FRAGMENT } from "../../fragments";
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   {
     seeFeed {
       ...PostParts
     }
   }
   ${POST_FRAGMENT}
-`;
-
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
 `;
 
 export default () => {
@@ -30,10 +24,8 @@ export default () => {
     try {
       setRefreshing(true);
       await refetch();
-
     } catch (e) {
       console.log(e);
-
     } finally {
       setRefreshing(false);
     }
@@ -45,7 +37,11 @@ export default () => {
         <RefreshControl refreshing={refreshing} onRefresh={refresh} />
       }
     >
-      {loading ? <Loader /> : data?.seeFeed?.map(post => <Post key={post.id} {...post} />)}
+      {loading ? (
+        <Loader />
+      ) : (
+        data?.seeFeed?.map((post) => <Post key={post.id} {...post} />)
+      )}
     </ScrollView>
   );
 };

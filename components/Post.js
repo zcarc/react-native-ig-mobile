@@ -69,6 +69,7 @@ const Post = ({
   comments = [],
   isLiked: isLikedProp,
 }) => {
+  console.log("post files", files);
   const [isLiked, setIsLiked] = useState(isLikedProp);
   const [likeCount, setLikeCount] = useState(likeCountProp);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {

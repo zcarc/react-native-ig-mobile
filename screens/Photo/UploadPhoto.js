@@ -6,6 +6,19 @@ import useInput from "../../hooks/useInput";
 import styles from "../../styles";
 import constants from "../../constants";
 import apolloOption from "../../apollo";
+import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
+import { FEED_QUERY } from "../Tabs/Home";
+
+const UPLOAD = gql`
+  mutation upload($caption: String!, $files: [String!]!, $location: String) {
+    upload(caption: $caption, files: $files, location: $location) {
+      id
+      caption
+      location
+    }
+  }
+`;
 
 const View = styled.View`
   flex: 1;
@@ -41,15 +54,17 @@ const Text = styled.Text`
   font-weight: 600;
 `;
 
-export default ({ route }) => {
+export default ({ route, navigation }) => {
   const {
     params: { photo },
   } = route;
 
   const [loading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
   const captionInput = useInput("df");
   const locationInput = useInput("df");
+  const [uploadMutation] = useMutation(UPLOAD, {
+    refetchQueries: () => [{ query: FEED_QUERY }],
+  });
 
   const handleSubmit = async () => {
     if (captionInput.value === "" || locationInput.value === "") {
@@ -65,6 +80,7 @@ export default ({ route }) => {
     });
 
     try {
+      setIsLoading(true);
       const {
         data: { location },
       } = await axios.post(`${apolloOption.uri}/api/upload`, formData, {
@@ -72,9 +88,25 @@ export default ({ route }) => {
           "content-type": "multipart/form-data",
         },
       });
-      setFileUrl(location);
+
+      const {
+        data: { upload },
+      } = await uploadMutation({
+        variables: {
+          caption: captionInput.value,
+          location: locationInput.value,
+          files: [location],
+        },
+      });
+
+      if(upload.id) {
+        navigation.navigate("TabNavgation");
+      }
+
     } catch (e) {
       Alert.alert("Can't upload", "Try later");
+    } finally {
+      setIsLoading(false);
     }
   };
 
